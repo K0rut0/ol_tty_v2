@@ -17,7 +17,6 @@ func _ready():
 	for player in PlayerArr:
 		var currentPlayer = PlayerScene.instantiate()
 		currentPlayer.name = str(player.id)
-		#print(str(GameManager.Players[i].id) + " " + GameManager.Players[i].name)
 		currentPlayer.find_child("playername").text = player.name
 		add_child(currentPlayer)
 		
@@ -25,7 +24,6 @@ func _ready():
 		for spawn in get_tree().get_nodes_in_group("PlayerSpawnPoint"):
 			if(spawn.name == str(index)):
 				currentPlayer.global_position = spawn.global_position
-				#print(GameManager.Players)
 				print(str(index) + "was spawned: " + currentPlayer.name)
 		index+=1
 		

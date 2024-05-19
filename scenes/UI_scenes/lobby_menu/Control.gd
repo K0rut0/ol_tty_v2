@@ -6,17 +6,29 @@ signal joinGame(ip)
 var broadcastTimer : Timer
 
 
-var RoomInfo = {"name":"name", "playerCount": 0}
+var RoomInfo = {"name":"name", "playerCount": 0, "ip":"","players": GameManager.Players}
 var broadcaster : PacketPeerUDP
 var listner : PacketPeerUDP
 @export var listenPort : int = 8911
 @export var broadcastPort : int = 8912
-@export var broadcastAddress : String = '192.168.1.255'
-
+@export var broadcastAddress : String = '255.255.255.255'
 @export var serverInfo : PackedScene
 
+var currentRoomPlayers = {}
+
+var rooms = {}
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	var address = "no ip aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+	var addresses = []
+	for ip in IP.get_local_addresses():
+		if ip.begins_with("10.") or ip.begins_with("172.16.") or ip.begins_with("192.168."):
+			addresses.push_back(ip)
+	if addresses.size() > 0:
+		address = addresses[0]
+		RoomInfo.ip = address
+		print(address)
+	$"../ipadd".text = address
 	broadcastTimer = $BroadcastTimer
 	setUp()
 	pass # Replace with function body.
@@ -36,7 +48,6 @@ func setUp():
 func setUpBroadCast(name):
 	RoomInfo.name = name
 	RoomInfo.playerCount = GameManager.Players.size()
-	
 	broadcaster = PacketPeerUDP.new()
 	broadcaster.set_broadcast_enabled(true)
 	broadcaster.set_dest_address(broadcastAddress, listenPort)
@@ -59,13 +70,26 @@ func _process(delta):
 		var bytes = listner.get_packet()
 		var data = bytes.get_string_from_ascii()
 		var roomInfo = JSON.parse_string(data)
-		
-		print("server Ip: " + serverip +" serverPort: "+ str(serverport) + " room info: " + str(roomInfo))
-		
+		print(serverip + "/n-" + str(roomInfo))
+		if(serverip != ""):
+			if(!rooms.has(str(serverip))):
+				rooms[serverip] = {
+					"name": roomInfo.name,
+					"playerC": roomInfo.playerCount
+				}
+		print(currentRoomPlayers)
+		#print("server Ip: " + serverip +" serverPort: "+ str(serverport) + " room info: " + str(roomInfo))
+		if(!currentRoomPlayers.has(roomInfo.ip)):
+					currentRoomPlayers[roomInfo.ip] ={
+						"players": roomInfo.players
+					}
 		for i in $Panel/VBoxContainer.get_children():
 			if i.name == roomInfo.name:
-				i.get_node("IP").text = serverip
+				i.get_node("IP").text = roomInfo.ip
 				i.get_node("PlayerCount").text = str(roomInfo.playerCount)
+				currentRoomPlayers[roomInfo.ip] ={
+					"players": roomInfo.players
+				}
 				return
 
 		var currentInfo = serverInfo.instantiate()
@@ -73,14 +97,16 @@ func _process(delta):
 		currentInfo.get_node("Name").text = roomInfo.name
 		currentInfo.get_node("IP").text = serverip
 		currentInfo.get_node("PlayerCount").text = str(roomInfo.playerCount)
+		currentInfo.get_node("Button").text = "Join " + roomInfo.name
 		$Panel/VBoxContainer.add_child(currentInfo)
+		print(serverip)
 		currentInfo.joinGame.connect(joinbyIp)
 		pass
 	pass
 
 
 func _on_broadcast_timer_timeout():
-	print("Broadcasting Game!")
+	#print("Broadcasting Game!")
 	RoomInfo.playerCount = GameManager.Players.size()
 	var data = JSON.stringify(RoomInfo)
 	var packet = data.to_ascii_buffer()
@@ -98,4 +124,6 @@ func _exit_tree():
 	cleanUp()
 
 func joinbyIp(ip):
+	
+	print(ip)
 	joinGame.emit(ip)

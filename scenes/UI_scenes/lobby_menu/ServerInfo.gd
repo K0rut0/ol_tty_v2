@@ -11,5 +11,5 @@ func _process(delta):
 	pass
 	
 func _on_button_button_down():
-	joinGame.emit($Ip.text)
+	joinGame.emit($IP.text)
 	pass # Replace with function body.

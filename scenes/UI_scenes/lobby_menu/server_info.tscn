@@ -24,3 +24,5 @@ text = "192.168.1.1"
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Join Game"
+
+[connection signal="button_down" from="Button" to="." method="_on_button_button_down"]
