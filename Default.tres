@@ -1,21 +1,21 @@
 [gd_resource type="Theme" load_steps=8 format=3 uid="uid://yqhtqr76mkc3"]
 
-[ext_resource type="Texture2D" uid="uid://brhko5m05gsw0" path="res://assets/objects/gui.png" id="1_5lgx7"]
 [ext_resource type="FontFile" uid="uid://ddmbfey1st6ey" path="res://assets/fonts/ka1.ttf" id="1_hc7cd"]
+[ext_resource type="Texture2D" uid="uid://d38uukvy1tj6w" path="res://assets/objects/ui/gui.png" id="2_ik8jt"]
 [ext_resource type="FontFile" uid="uid://bcxlqeemg6nnd" path="res://assets/fonts/INVASION2000.TTF" id="3_sajir"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nvwlw"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0rgph"]
-texture = ExtResource("1_5lgx7")
+texture = ExtResource("2_ik8jt")
 region_rect = Rect2(147, 34, 42, 28)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7ytk2"]
-texture = ExtResource("1_5lgx7")
+texture = ExtResource("2_ik8jt")
 region_rect = Rect2(147, 2, 42, 28)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pvh0k"]
-texture = ExtResource("1_5lgx7")
+texture = ExtResource("2_ik8jt")
 region_rect = Rect2(195, 36, 42, 26)
 
 [resource]

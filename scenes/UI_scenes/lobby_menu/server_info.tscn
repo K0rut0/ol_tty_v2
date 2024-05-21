@@ -2,17 +2,17 @@
 
 [ext_resource type="Script" path="res://scenes/UI_scenes/lobby_menu/ServerInfo.gd" id="1_w3q2n"]
 [ext_resource type="Theme" uid="uid://yqhtqr76mkc3" path="res://Default.tres" id="2_mvr46"]
-[ext_resource type="Texture2D" uid="uid://brhko5m05gsw0" path="res://assets/objects/gui.png" id="3_h46o1"]
+[ext_resource type="Texture2D" uid="uid://d38uukvy1tj6w" path="res://assets/objects/ui/gui.png" id="3_qhbbb"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_an4m5"]
-texture = ExtResource("3_h46o1")
+texture = ExtResource("3_qhbbb")
 texture_margin_left = 2.0
 texture_margin_right = 2.0
 texture_margin_bottom = 4.0
 region_rect = Rect2(9, 105, 30, 30)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hub0k"]
-texture = ExtResource("3_h46o1")
+texture = ExtResource("3_qhbbb")
 texture_margin_left = 2.0
 texture_margin_top = 2.0
 texture_margin_right = 2.0
@@ -20,7 +20,7 @@ texture_margin_bottom = 4.0
 region_rect = Rect2(59, 107, 26, 28)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_n448a"]
-texture = ExtResource("3_h46o1")
+texture = ExtResource("3_qhbbb")
 texture_margin_left = 2.0
 texture_margin_top = 2.0
 texture_margin_right = 2.0

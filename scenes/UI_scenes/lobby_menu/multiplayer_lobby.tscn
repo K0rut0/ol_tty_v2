@@ -1,22 +1,18 @@
-[gd_scene load_steps=10 format=3 uid="uid://dn56hcbavqube"]
+[gd_scene load_steps=12 format=3 uid="uid://dn56hcbavqube"]
 
 [ext_resource type="Script" path="res://scenes/UI_scenes/lobby_menu/multiplayer_lobby.gd" id="1_84gg5"]
 [ext_resource type="Theme" uid="uid://yqhtqr76mkc3" path="res://Default.tres" id="1_soco6"]
 [ext_resource type="Script" path="res://scenes/UI_scenes/lobby_menu/Control.gd" id="2_oo1ne"]
-[ext_resource type="Texture2D" uid="uid://da4vi1p488ngp" path="res://assets/objects/menu_bg.png" id="2_rf78t"]
+[ext_resource type="Texture2D" uid="uid://cinytmjy2vwdc" path="res://assets/objects/menu_bg.png" id="2_rf78t"]
 [ext_resource type="Script" path="res://scenes/UI_scenes/main_menu/background.gd" id="3_31rjn"]
 [ext_resource type="PackedScene" uid="uid://borv4gmcqi7gd" path="res://scenes/UI_scenes/lobby_menu/server_info.tscn" id="3_q8aqm"]
-[ext_resource type="Texture2D" uid="uid://bhvbocglrtid" path="res://assets/objects/back.png" id="7_vsy7f"]
-
-[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_5ldow"]
-dof_blur_far_distance = 9.0
-dof_blur_far_transition = -1.0
-dof_blur_near_enabled = true
-dof_blur_near_distance = 10.02
-dof_blur_near_transition = -1.0
-dof_blur_amount = 1.0
+[ext_resource type="Texture2D" uid="uid://civeu04wwwkx8" path="res://assets/objects/ui/male.png" id="7_c3rct"]
+[ext_resource type="Texture2D" uid="uid://cop6w5ml78oji" path="res://assets/objects/ui/back.png" id="7_vsy7f"]
+[ext_resource type="Texture2D" uid="uid://cmkw43csov3uj" path="res://assets/objects/ui/female.png" id="8_qei47"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_uopm1"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_jywwx"]
 
 [node name="multiplayer_lobby" type="Control"]
 layout_mode = 3
@@ -37,9 +33,6 @@ scale = Vector2(0.601042, 0.601852)
 texture = ExtResource("2_rf78t")
 script = ExtResource("3_31rjn")
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="MenuBg"]
-camera_attributes = SubResource("CameraAttributesPractical_5ldow")
-
 [node name="host" type="Button" parent="."]
 layout_mode = 0
 offset_left = 130.0
@@ -51,10 +44,10 @@ text = "Host"
 
 [node name="join" type="Button" parent="."]
 layout_mode = 0
-offset_left = 317.0
+offset_left = 320.0
 offset_top = 150.0
-offset_right = 463.0
-offset_bottom = 203.0
+offset_right = 466.0
+offset_bottom = 202.0
 theme = ExtResource("1_soco6")
 text = "Join"
 
@@ -154,6 +147,36 @@ offset_top = 623.0
 offset_right = 253.0
 offset_bottom = 711.0
 text = "Ip"
+
+[node name="male" type="Button" parent="."]
+layout_mode = 0
+offset_left = 503.0
+offset_top = 84.0
+offset_right = 553.0
+offset_bottom = 134.0
+theme = ExtResource("1_soco6")
+toggle_mode = true
+action_mode = 0
+keep_pressed_outside = true
+button_group = SubResource("ButtonGroup_jywwx")
+icon = ExtResource("7_c3rct")
+icon_alignment = 1
+expand_icon = true
+
+[node name="female" type="Button" parent="."]
+layout_mode = 0
+offset_left = 503.0
+offset_top = 151.0
+offset_right = 553.0
+offset_bottom = 201.0
+theme = ExtResource("1_soco6")
+toggle_mode = true
+action_mode = 0
+keep_pressed_outside = true
+button_group = SubResource("ButtonGroup_jywwx")
+icon = ExtResource("8_qei47")
+icon_alignment = 1
+expand_icon = true
 
 [node name="back" type="Button" parent="."]
 layout_mode = 0
