@@ -116,4 +116,7 @@ func _on_start_button_down():
 	start_game.rpc()
 	pass # Replace with function body.
 
+func _on_back_button_down():
+	get_tree().change_scene_to_file("res://scenes/UI_scenes/main_menu/main_menu.tscn")
+	pass
 
