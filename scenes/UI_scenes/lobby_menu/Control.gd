@@ -63,21 +63,21 @@ func setUpBroadCast(name):
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	if listner.get_available_packet_count() > 0:
 		var serverip = listner.get_packet_ip()
 		var serverport = listner.get_packet_port()
 		var bytes = listner.get_packet()
 		var data = bytes.get_string_from_ascii()
 		var roomInfo = JSON.parse_string(data)
-		print(serverip + "/n-" + str(roomInfo))
+		#print(serverip + "/n-" + str(roomInfo))
 		if(serverip != ""):
 			if(!rooms.has(str(serverip))):
 				rooms[serverip] = {
 					"name": roomInfo.name,
 					"playerC": roomInfo.playerCount
 				}
-		print(currentRoomPlayers)
+		#print(currentRoomPlayers)
 		#print("server Ip: " + serverip +" serverPort: "+ str(serverport) + " room info: " + str(roomInfo))
 		if(!currentRoomPlayers.has(roomInfo.ip)):
 					currentRoomPlayers[roomInfo.ip] ={

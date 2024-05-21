@@ -422,19 +422,25 @@ layer_1/tile_data = PackedInt32Array(65540, 851969, 6, 196610, 851969, 6, 196611
 [node name="SpawnLocations" type="Node2D" parent="."]
 
 [node name="0" type="Node2D" parent="SpawnLocations" groups=["PlayerSpawnPoint"]]
-position = Vector2(128, 64)
+position = Vector2(320, 192)
 
 [node name="1" type="Node2D" parent="SpawnLocations" groups=["PlayerSpawnPoint"]]
-position = Vector2(128, 768)
+position = Vector2(320, 768)
 
 [node name="2" type="Node2D" parent="SpawnLocations" groups=["PlayerSpawnPoint"]]
-position = Vector2(576, 768)
+position = Vector2(640, 768)
 
 [node name="3" type="Node2D" parent="SpawnLocations" groups=["PlayerSpawnPoint"]]
-position = Vector2(576, 64)
+position = Vector2(672, 192)
 
 [node name="4" type="Node2D" parent="SpawnLocations" groups=["PlayerSpawnPoint"]]
-position = Vector2(1024, 64)
+position = Vector2(1088, 192)
 
 [node name="5" type="Node2D" parent="SpawnLocations" groups=["PlayerSpawnPoint"]]
-position = Vector2(1024, 768)
+position = Vector2(1088, 768)
+
+[node name="TagTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[connection signal="timeout" from="TagTimer" to="." method="_on_tag_timer_timeout"]

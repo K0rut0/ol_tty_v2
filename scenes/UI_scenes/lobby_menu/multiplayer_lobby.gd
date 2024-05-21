@@ -25,10 +25,10 @@ func _process(_delta):
 
 
 @rpc("any_peer")
-func send_player_info(username, id):
-	if !GameManager.Players.has(id):
-		GameManager.Players[id] = {
-			"id": id,
+func send_player_info(username, ids):
+	if !GameManager.Players.has(ids):
+		GameManager.Players[ids] = {
+			"id": ids,
 			"name": username,
 			"is_it": false
 		}
@@ -38,9 +38,34 @@ func send_player_info(username, id):
 
 @rpc("any_peer", "call_local")
 func start_game():
+	if(multiplayer.get_unique_id() == 1):
+		var PlayerArr = []
+		for i in GameManager.Players:
+			PlayerArr.push_back(GameManager.Players[i])
+		#sort players by id so they dont overlap in spawn
+		PlayerArr.sort_custom(func(a, b): return a.id < b.id)
+		var it = randi_range(0, PlayerArr.size()-1)
+		GameManager.Players[PlayerArr[it].id].is_it = true
+		syncInitState(GameManager.Players)
 	var scene = load("res://scenes/level_scenes/basic_map/basic_map.tscn").instantiate()
 	get_tree().root.add_child(scene)
 	self.hide()
+
+@rpc("authority")
+func syncInitState(gm):
+	for p in gm:
+		for pl in GameManager.Players:
+			if(p == pl):
+				GameManager.Players[pl].is_it = gm[pl].is_it
+	print("synced")
+	print(GameManager.Players)
+	if(multiplayer.is_server()):
+		print(" --server--")
+	else:
+		print("--client--")
+	if(multiplayer.is_server()):
+		syncInitState.rpc(gm)
+	
 
 func peer_connected(id):
 	print("Player connected " +  str(id))
@@ -68,6 +93,7 @@ func hostGame():
 func _on_host_button_down():
 	hostGame()
 	send_player_info($username.text, multiplayer.get_unique_id())
+	
 	$Control.setUpBroadCast($username.text + "'s server")
 	pass # Replace with function body.
 	

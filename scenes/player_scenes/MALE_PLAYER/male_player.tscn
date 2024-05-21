@@ -1,8 +1,14 @@
-[gd_scene load_steps=31 format=3 uid="uid://bj20muoximt4f"]
+[gd_scene load_steps=33 format=3 uid="uid://bj20muoximt4f"]
 
 [ext_resource type="Script" path="res://scenes/player_scenes/MALE_PLAYER/male_player.gd" id="1_qd2d6"]
 [ext_resource type="Texture2D" uid="uid://je47p35rl2yi" path="res://assets/player_assets/MALE_CHAR/Main_Char_Animations.png" id="2_1x8uj"]
+[ext_resource type="Shader" path="res://scenes/player_scenes/MALE_PLAYER/male_player.gdshader" id="2_5la36"]
 [ext_resource type="PackedScene" uid="uid://smt8r84pk1vk" path="res://scenes/UI_scenes/controls/joystick/joystick.tscn" id="3_07557"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8ygvg"]
+shader = ExtResource("2_5la36")
+shader_parameter/line_color = Color(0.623529, 0.0117647, 0, 1)
+shader_parameter/line_thickness = 0.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cc57n"]
 size = Vector2(81, 66.25)
@@ -249,20 +255,25 @@ properties/1/path = NodePath("Camera2D:position")
 properties/1/spawn = true
 properties/1/sync = true
 properties/1/watch = false
+properties/2/path = NodePath("playername:theme_override_colors/font_color")
+properties/2/spawn = true
+properties/2/sync = true
+properties/2/watch = false
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dalp6"]
-radius = 130.231
+radius = 88.0
 
 [node name="male_player" type="CharacterBody2D"]
 script = ExtResource("1_qd2d6")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(3.725, -36.3727)
-scale = Vector2(0.903438, 0.919819)
+material = SubResource("ShaderMaterial_8ygvg")
+position = Vector2(3.725, -33.3936)
+scale = Vector2(0.903438, 0.88258)
 texture = ExtResource("2_1x8uj")
 hframes = 10
 vframes = 5
-frame = 10
+frame = 22
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(5.5, 6.125)
@@ -281,7 +292,7 @@ parameters/idle/blend_position = Vector2(-0.998466, 0.0240176)
 parameters/walk/blend_position = Vector2(-0.00160003, 0.072455)
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(0.3, 0.3)
+zoom = Vector2(0.5, 0.5)
 
 [node name="joystick" parent="Camera2D" instance=ExtResource("3_07557")]
 visible = false
@@ -292,12 +303,12 @@ scale = Vector2(2, 2)
 replication_config = SubResource("SceneReplicationConfig_6vtq1")
 
 [node name="playername" type="Label" parent="."]
-offset_left = -88.0
-offset_top = -168.0
-offset_right = 94.0
-offset_bottom = -125.0
+offset_left = -152.0
+offset_top = -224.0
+offset_right = 158.0
+offset_bottom = -152.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 29
+theme_override_font_sizes/font_size = 50
 text = "Player Name"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -305,7 +316,20 @@ vertical_alignment = 1
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(8, -16)
+position = Vector2(0, -24)
 shape = SubResource("CircleShape2D_dalp6")
+disabled = true
 
-[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[node name="ColTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+autostart = true
+
+[node name="TagTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
+[connection signal="timeout" from="ColTimer" to="." method="_on_col_timer_timeout"]
+[connection signal="timeout" from="TagTimer" to="." method="_on_tag_timer_timeout"]
