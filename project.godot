@@ -12,19 +12,18 @@ config_version=5
 
 config/name="ITECC06_FINALS_V2"
 run/main_scene="res://scenes/UI_scenes/main_menu/main_menu.tscn"
-config/features=PackedStringArray("4.2", "GL Compatibility")
+config/features=PackedStringArray("4.1", "GL Compatibility")
+config/icon="res://assets/objects/icon.svg"
 
 [autoload]
 
 GameManager="*res://scripts/GameManager.gd"
 
-[debug]
+[display]
 
-gdscript/movie_file="D:/godot recording/record1.avi"
-
-[editor]
-
-movie_writer/movie_file="D:/godot recording/record1.avi"
+window/size/viewport_width=1280
+window/size/viewport_height=720
+window/size/mode=3
 
 [input]
 
@@ -58,9 +57,13 @@ shift={
 ]
 }
 
+[layer_names]
+
+2d_render/layer_1="players"
+2d_render/layer_2="walls"
+
 [rendering]
 
-textures/canvas_textures/default_texture_filter=0
-renderer/rendering_method="mobile"
-renderer/rendering_method.web="forward_plus"
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
 textures/vram_compression/import_etc2_astc=true
